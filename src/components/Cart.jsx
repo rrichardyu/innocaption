@@ -52,8 +52,8 @@ export default function Cart({ isOpen, handleClose }) {
                     )) : <p></p>}
                 </div>
             </div>
-            <div>
-                <h3 className="text-xl font-bold mt-4">Total: ${cart.total}</h3>
+            <div className="mt-4">
+                <h3 className="text-xl font-bold">Total: ${cart.total}</h3>
             </div>
           </div>
         </div>

@@ -37,14 +37,14 @@ export default function App() {
           className="w-1/2 p-2 rounded border"
         />
         <div>
-          <button className="mt-2" onClick={toggleCart}>Cart</button>
+          <button className="mt-2 bg-blue-800 hover:bg-blue-700 text-white font-bold" onClick={toggleCart}>Cart ({Object.keys(cart).length !== 0 ? cart.totalQuantity : 0})</button>
           {isCartOpen && <>
             <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-0"></div>
             <Cart isOpen={isCartOpen} handleClose={toggleCart} />
           </>}
         </div>
       </div>
-      <div className="mt-20">
+      <div className="mt-32">
         {
           filteredProducts.length
           ? <div className="grid grid-cols-3 gap-4">
