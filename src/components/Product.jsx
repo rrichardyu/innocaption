@@ -24,20 +24,37 @@ export default function Product(props) {
             .then(updatedCart => setCart(updatedCart))
         } else {
             let existingProducts = []
+            let productAlreadyInCart = false
+
             for (let i = 0; i < cart.products.length; i++) {
                 const product = cart.products[i]
                 existingProducts.push({
                     id: product.id,
                     quantity: product.quantity
                 })
+
+                if (product.id == props.data.id) {
+                    productAlreadyInCart = true
+                    existingProducts.push({
+                        id: product.id,
+                        quantity: product.quantity + 1
+                    })
+                } else {
+                    existingProducts.push({
+                        id: product.id,
+                        quantity: product.quantity
+                    })
+                }
             }
 
-            existingProducts.push(
-                {
-                    id: props.data.id,
-                    quantity: 1
-                }
-            )
+            if (!productAlreadyInCart) {
+                existingProducts.push(
+                    {
+                        id: props.data.id,
+                        quantity: 1
+                    }
+                )
+            }
 
             fetch('https://dummyjson.com/carts/1', {
                 method: 'PATCH',
