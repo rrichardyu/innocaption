@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import Product from './components/Product'
+import Cart from './components/Cart';
 
 export default function App() {
   const [products, setProducts] = useState([])
   const [searchQuery, setSearchQuery] = useState("");
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
 
   useEffect(() => {
@@ -12,6 +14,10 @@ export default function App() {
       .then(response => response.json())
       .then(data => setProducts(data.products))
   }, [])
+
+  const toggleCart = () => {
+    setIsCartOpen(!isCartOpen);
+  };
   
   const filteredProducts = products.filter(product =>
     product.title && product.title.toLowerCase().includes(searchQuery.toLowerCase())
@@ -27,6 +33,13 @@ export default function App() {
           onChange={e => setSearchQuery(e.target.value)}
           className="w-1/2 p-2 rounded border"
         />
+        <div>
+          <button className="mt-2" onClick={toggleCart}>Cart</button>
+          {isCartOpen && <>
+            <div className="fixed top-0 left-0 w-full h-full bg-black opacity-50 z-0"></div>
+            <Cart isOpen={isCartOpen} handleClose={toggleCart} />
+          </>}
+        </div>
       </div>
       <div className="mt-20">
         {
