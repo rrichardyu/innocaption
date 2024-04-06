@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import Product from './components/Product'
 import Cart from './components/Cart';
+import { CartContext } from './CartContext';
 
 export default function App() {
+  const [cart, setCart] = useState({})
   const [products, setProducts] = useState([])
   const [searchQuery, setSearchQuery] = useState("");
   const [isCartOpen, setIsCartOpen] = useState(false);
@@ -24,6 +26,7 @@ export default function App() {
   )
 
   return (
+    <CartContext.Provider value={{cart, setCart}}>
     <div className="w-full">
       <div className="fixed top-0 left-0 w-full bg-gray-200 p-4 shadow-md">
         <input
@@ -55,6 +58,7 @@ export default function App() {
         }
       </div>
     </div>
+    </CartContext.Provider>
   )
 }
 
